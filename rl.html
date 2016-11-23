@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding: 0;
+		font-family: "微软雅黑",Arial;
+	}
+
+	.box{
+		width: 300px;
+		height: 280px;
+		margin: 0 auto;
+		background: #ccc;
+		padding-top: 20px;
+	}
+	.form{
+		text-align: center;
+		display: block;
+		width: 100%;
+
+	}
+	#body{
+		margin: 10px auto;
+		width: 240px;
+		height: 220px;
+		background:gray; 
+		padding-top:10px;
+	}
+	li{
+		list-style: none;
+		float: left;
+		width: 23px;
+		height: 24px;
+		text-align: center;
+		line-height: 21px;
+		margin-left: 10px;
+	
+
+	}
+	#zhou li{
+		font-size: 16px;
+	}
+	#day li{
+		background: #AACC00;
+		color:#176717;
+		margin-bottom: 10px;
+
+	}
+	#day li.gray{
+		background: gray;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<form class="form">
+			<label>年份:</label>
+			<select name="" id="year">
+				
+			</select>
+			<label>月份:</label>
+			<select name="" id="month">
+			
+			</select>
+		</form>
+		<div id="body">
+			<ul id="zhou">
+				<li>日</li>
+				<li>一</li>
+				<li>二</li>
+				<li>三</li>
+				<li>四</li>
+				<li>五</li>
+				<li>六</li>
+			</ul>
+			<ul id="day">
+				
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var year = document.getElementById('year');
+		var month = document.getElementById('month');
+		var day = document.getElementById('day');
+		var nowTime=new Date();
+		var nowtime=nowTime.getFullYear();
+		
+		for(var i=nowtime;i>1945;i--){
+			year.innerHTML+='<option value="'+i+'">'+i+'</option>';
+		}
+		for(var j=1;j<=12;j++){
+			month.innerHTML+='<option value="'+j+'">'+j+'</option>';
+		}
+
+
+		//方法一
+		
+		// var mon,yea,days;
+
+		// month.onclick=function(){
+		// 	mon=month.value;
+		// 	yea=year.value;
+		// 	var D=new Date(yea,mon-1,1);
+		// 	var day=getDays(mon,yea);
+		// 	var gday=D.getDay();
+		// 	sDay(day,gday);
+		// }
+		// year.onclick=function(){
+		// 	mon=month.value;
+		// 	yea=year.value;
+		// 	var D=new Date(yea,mon-1,1)
+		// 	var day=getDays(mon,yea);
+		// 	var gday=D.getDay();
+		// 	sDay(day,gday);
+		// }
+
+		// function getDays(mon,yea){
+		// 	if(mon == 2){
+		// 		days = yea % 4 == 0 ? 29 : 28;
+		// 	}
+		// 	else if(mon ==1 || mon ==3 || mon ==5|| mon ==7 || mon ==8 || mon == 10 || mon ==12){
+		// 		days=31;
+		// 	}
+		// 	else {
+		// 		days=30;
+		// 	}
+		// 	return days;
+		// }
+
+		// function sDay(t,gday){
+
+		// 	day.innerHTML='';
+		// 	for(var l=0;l<gday;l++){
+		// 		day.innerHTML+='<li class="gray"></li>';
+		// 	}
+		// 	for(var k=1;k<t+1;k++){
+		// 		day.innerHTML+="<li>"+k+"</li";
+		// 	}
+		// }
+			
+
+			//方法二
+			function calFun(){
+				day.innerHTML='';
+				var Yv = year.value;
+				var Mv = month.value;
+
+				var dt = new Date(Yv,Mv-1,1);
+				var week = dt.getDay();
+				for(var i=0;i<week;i++){
+					day.innerHTML+='<li class="gray"></li>';
+				}
+			
+				var dt1 = new Date(Yv,Mv,0);
+				var days = dt1.getDate();
+				for(var i=1;i<=days;i++){
+					day.innerHTML+="<li>"+i+"</li>";
+				}
+			}
+
+
+			calFun();
+			year.onchange=function(){
+				calFun();
+			}
+			month.onchange=function(){
+				calFun();
+			}
+			
+		
+	</script>
+</body>
+</html>
